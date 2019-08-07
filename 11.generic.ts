@@ -1,4 +1,5 @@
 // 泛型：用动态的类型(类型变量)描述函数和类的方式
+// 泛型函数
 /**
  * 创建一个返回任何传入值的函数，如果不使用泛型，可以使用any来定义函数
  * function identity(arg: any): any {
@@ -44,4 +45,26 @@
  *  console.log(arg.length);
  *  return arg
  * }
+ * 
+ * 通常会定义一个接口来描述约束条件，使用这个接口和extends关键字来实现约束条件
+ * interface Lengthwise {
+ *  length: number;
+ * }
+ * function logIdentity<T extends Lengthwise>(arg: T): T {
+ *  // 使用Lengthwise接口约束后，函数传入值必须带有length属性，此时我们打印arg.length编译器就不会报错了；当传入值的数据类型不符合接口的约束时，编译器会报错；
+ *  console.log(arg.length);
+ *  return arg;
+ * }
+ */
+// 泛型类
+/**
+ * 泛型类使用<>包裹泛型类型，跟在类名的后面
+ * class GenericNumber<T> {
+ *  zeroValue: T;
+ *  add: (x: T, y: T) => T
+ * }
+ * let myGenericNumber = new GenericNumber<number>();
+ * myGenericNumber.zeroValue = 0;
+ * myGenericNumber.add = (x, y) => x + y
+ * 直接把泛型类型放在类的后面，可以帮助确认类的所有属性都在使用相同的数据类型；
  */
